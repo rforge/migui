@@ -14,9 +14,9 @@ displayMissingDataPattern <- function () {
   #### options ####
   # y.order
   y.order <- tclVar ("FALSE")
-  y.order.rb1 <- tkradiobutton (frameRight, text="true")
+  y.order.rb1 <- tkradiobutton (frameRight, text="Yes")
   tkconfigure(y.order.rb1,variable=y.order,value="TRUE")
-  y.order.rb2 <- tkradiobutton (frameRight, text="false")
+  y.order.rb2 <- tkradiobutton (frameRight, text="No")
   tkconfigure(y.order.rb2,variable=y.order,value="FALSE")
   tkgrid (tklabel (frameRight, text="Order y-axis by missing rate"), row=0, column=9, columnspan=2, sticky="w")
   tkgrid (y.order.rb1, row=1, column=9)
@@ -24,25 +24,38 @@ displayMissingDataPattern <- function () {
   
   # x.order
   x.order <- tclVar ("FALSE")
-  x.order.rb1 <- tkradiobutton (frameRight, text="true")
+  x.order.rb1 <- tkradiobutton (frameRight, text="Yes")
   tkconfigure(x.order.rb1,variable=x.order, value="TRUE")
-  x.order.rb2 <- tkradiobutton (frameRight, text="false")
+  x.order.rb2 <- tkradiobutton (frameRight, text="No")
   tkconfigure(x.order.rb2,variable=x.order, value="FALSE")
   tkgrid (tklabel (frameRight, text="Order x-axis by missing rate"), row=2, column=9, columnspan=2, sticky="w")
   tkgrid (x.order.rb1, row=3, column=9)
   tkgrid (x.order.rb2, row=3, column=10)
   
+  
+  # clustering
+  clustered <- tclVar ("FALSE")
+  clustered.rb1 <- tkradiobutton (frameRight, text="Yes")
+  tkconfigure(clustered.rb1, variable=clustered, value="TRUE")
+  clustered.rb2 <- tkradiobutton (frameRight, text="No")
+  tkconfigure(clustered.rb2,variable=x.order, value="FALSE")
+  tkgrid (tklabel (frameRight, text="Clustered by missingness pattern?"), row=4, column=9, columnspan=2, sticky="w")
+  tkgrid (clustered.rb1, row=5, column=9)
+  tkgrid (clustered.rb2, row=5, column=10)
+
+  
   # xlab
   xlab <- tclVar ("Index")
+  
   xlab.entry <- tkentry (frameRight, width=25, textvariable=xlab)
-  tkgrid (tklabel (frameRight, text="Label for x-axis"), row=4, column=9, columnspan=2, stick="w")
-  tkgrid (xlab.entry, row=5, column=9, columnspan=2)
+  tkgrid (tklabel (frameRight, text="Label for x-axis"), row=6, column=9, columnspan=2, stick="w")
+  tkgrid (xlab.entry, row=7, column=9, columnspan=2)
   
   # ylab
   ylab <- tclVar ("Variable")
   ylab.entry <- tkentry (frameRight, width=25, textvariable=ylab)
-  tkgrid (tklabel (frameRight, text="Label for y-axis"), row=6, column=9, columnspan=2, stick="w")
-  tkgrid (ylab.entry, row=7, column=9, columnspan=2)
+  tkgrid (tklabel (frameRight, text="Label for y-axis"), row=8, column=9, columnspan=2, stick="w")
+  tkgrid (ylab.entry, row=9, column=9, columnspan=2)
   
   # main: title
 #  main <- tclVar ("")
@@ -54,13 +67,13 @@ displayMissingDataPattern <- function () {
   # gray.scale
 #  col <- col + 1
   gray.scale <- tclVar ("FALSE")
-  gray.scale.rb1 <- tkradiobutton (frameRight, text="true")
+  gray.scale.rb1 <- tkradiobutton (frameRight, text="Yes")
   tkconfigure(gray.scale.rb1, variable=gray.scale, value="TRUE")
-  gray.scale.rb2 <- tkradiobutton (frameRight, text="false")
+  gray.scale.rb2 <- tkradiobutton (frameRight, text="No")
   tkconfigure(gray.scale.rb2,variable=gray.scale,value="FALSE")
-  tkgrid (tklabel (frameRight, text="Gray Scale"), row=8, column=9, columnspan=2, sticky="w")
-  tkgrid (gray.scale.rb1, row=9, column=9)
-  tkgrid (gray.scale.rb2, row=9, column=10)
+  tkgrid (tklabel (frameRight, text="Gray Scale"), row=10, column=9, columnspan=2, sticky="w")
+  tkgrid (gray.scale.rb1, row=11, column=9)
+  tkgrid (gray.scale.rb2, row=11, column=10)
   
   
   colors.simple <- c ("black", "white", "red", "violet", "blue", "green", "yellow", "orange")
@@ -69,15 +82,15 @@ displayMissingDataPattern <- function () {
   tclvalue (obs.col) <- "blue"
   obs.col.comboBox <- ttkcombobox(frameRight, values=colors.simple, textvariable=obs.col, width=24)
   
-  tkgrid (tklabel (frameRight, text="Colors for the observed"), row=10, column=9, columnspan=2, sticky="w")
-  tkgrid (obs.col.comboBox, row=11, column=9, columnspan=2)
+  tkgrid (tklabel (frameRight, text="Colors for the observed"), row=12, column=9, columnspan=2, sticky="w")
+  tkgrid (obs.col.comboBox, row=13, column=9, columnspan=2)
   
   # mis.col
   mis.col <- tclVar ()
   tclvalue (mis.col) <- "red" 
   mis.col.comboBox <- ttkcombobox(frameRight, values=colors.simple, textvariable=mis.col, width=24)
-  tkgrid (tklabel (frameRight, text="Colors for the missing"), row=12, column=9, columnspan=2, sticky="w")
-  tkgrid (mis.col.comboBox, row=13, column=9, columnspan=2)
+  tkgrid (tklabel (frameRight, text="Colors for the missing"), row=14, column=9, columnspan=2, sticky="w")
+  tkgrid (mis.col.comboBox, row=15, column=9, columnspan=2)
   
   onPlotButton <- function () {
     options <- list()
@@ -89,6 +102,7 @@ displayMissingDataPattern <- function () {
     options$gray.scale <- as.logical (tclvalue(gray.scale))
     options$obs.col <- as.character (tclvalue (obs.col))
     options$mis.col <- as.character (tclvalue (mis.col))
+    options$clustered <- as.logical (tclvalue(clustered))
     
     missing.pattern <- tkrplot(frameLeft, fun=plotFunctionCreator(options), hscale=1.5)
     tkgrid(missing.pattern, "in"=frameLeft, row=0, column=0, columnspan=9, rowspan=14)
@@ -99,8 +113,8 @@ displayMissingDataPattern <- function () {
   onPlotButton()
   plot.but <- tkbutton(frameBottom,text="Plot",command=onPlotButton, width=12)
   exit.but <- tkbutton(frameBottom,text="Exit",command=function() tkdestroy(this.gui), width=12)
-  tkgrid(plot.but, row=14, column=9)
-  tkgrid(exit.but, row=14, column=10)
+  tkgrid(plot.but, row=16, column=9)
+  tkgrid(exit.but, row=16, column=10)
   tkfocus(this.gui)
 } 
 
@@ -112,6 +126,7 @@ plotFunctionCreator <- function (options) {
         missing.pattern.plot (getMi(data), y.order=options$y.order, 
           x.order=options$x.order, 
           xlab="", ylab="", main="",#options$main, 
+          clustered = options$clustered,
           gray.scale=options$gray.scale, 
           obs.col=options$obs.col, 
           mis.col=options$mis.col)

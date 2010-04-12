@@ -111,9 +111,9 @@ checkModelFit <- function () {
   # gray.scale
   #col <- col + 1
   gray.scale <- tclVar ("FALSE")
-  gray.scale.rb1 <- tkradiobutton (frameRight, text="true ")
+  gray.scale.rb1 <- tkradiobutton (frameRight, text="Yes ")
   tkconfigure(gray.scale.rb1, variable=gray.scale, value="TRUE", command=onSettingChange)
-  gray.scale.rb2 <- tkradiobutton (frameRight, text="false")
+  gray.scale.rb2 <- tkradiobutton (frameRight, text="No")
   tkconfigure(gray.scale.rb2, variable=gray.scale, value="FALSE", command=onSettingChange)
   tkgrid (tklabel (frameRight, text="Gray Scale"), row=4, column=3, sticky="w")
   tkgrid (gray.scale.rb1, row=5, column=3, sticky="w")
