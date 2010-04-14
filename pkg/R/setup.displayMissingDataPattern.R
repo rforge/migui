@@ -67,9 +67,9 @@ displayMissingDataPattern <- function () {
   # gray.scale
 #  col <- col + 1
   gray.scale <- tclVar ("FALSE")
-  gray.scale.rb1 <- tkradiobutton (frameRight, text="true")
+  gray.scale.rb1 <- tkradiobutton (frameRight, text="Yes")
   tkconfigure(gray.scale.rb1, variable=gray.scale, value="TRUE")
-  gray.scale.rb2 <- tkradiobutton (frameRight, text="false")
+  gray.scale.rb2 <- tkradiobutton (frameRight, text="No")
   tkconfigure(gray.scale.rb2,variable=gray.scale,value="FALSE")
   tkgrid (tklabel (frameRight, text="Gray Scale"), row=10, column=9, columnspan=2, sticky="w")
   tkgrid (gray.scale.rb1, row=11, column=9)
