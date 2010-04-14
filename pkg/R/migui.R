@@ -4,7 +4,9 @@
 
 
 migui <- function(){
-
+  # initialize miEnv
+  miEnv()
+  
 # This is from Rcmdr file-menu.R
   .setWd <- function(){
     wd <- tclvalue(tkchooseDirectory(initialdir = getwd()))
@@ -50,7 +52,7 @@ migui <- function(){
   
   ### File
   #===="Changing Working Directory"
-  tkadd(main.menu.file, "command", label="Change working directory", command = function() .setWd())
+  tkadd(main.menu.file, "command", label="Change working directory", command = .setWd)
   #===="Open Script File"
   #tkadd(main.menu.file, "command", label="Open script file", command = function() NULL)
   #===="Save Script File"
@@ -58,9 +60,9 @@ migui <- function(){
   #===="Save Output File"
   #tkadd(main.menu.file, "command", label="Save output file", command = function() NULL)
   #===="Save R Workspace"
-  tkadd(main.menu.file, "command", label="Save R workspace", command = function() saveWorkspace())
+  tkadd(main.menu.file, "command", label="Save R workspace", command = saveWorkspace)
   #===="Exit"
-  tkadd(main.menu.file, "command", label="Exit", command = function() .exit())
+  tkadd(main.menu.file, "command", label="Exit", command = .exit)
   
   
   #### Edit
@@ -81,27 +83,27 @@ migui <- function(){
   
   ### Setup
   #===="Load Data Set"
-  tkadd(main.menu.setup, "command", label="Load session", command = function() loadSession())
+  tkadd(main.menu.setup, "command", label="Load session", command = loadSession)
   #===="Import data from"
-  tkadd(main.menu.setup, "command", label="Import data from", command = function() importDataFrom())
+  tkadd(main.menu.setup, "command", label="Import data from", command = importDataFrom)
   #===="Diaply Missing Data Pattern"
-  tkadd(main.menu.setup, "command", label="Display missing data patterns", command = function() displayMissingDataPattern())
+  tkadd(main.menu.setup, "command", label="Display missing data patterns", command = displayMissingDataPattern)
   #===="Specify Inputation Information"
-  tkadd(main.menu.setup, "command", label="Specify imputation information", command = function() specifyImputationInformation() )
+  tkadd(main.menu.setup, "command", label="Specify imputation information", command = specifyImputationInformation)
   
   ### Imputation
   #===="Run"
-  tkadd(main.menu.impute, "command", label="Run imputation", command = function() runImputation() )
+  tkadd(main.menu.impute, "command", label="Run imputation", command = runImputation)
   #===="Checking the fit of conditional models"
-  tkadd(main.menu.impute, "command", label="Check the fit of conditional models", command = function() checkModelFit())
+  tkadd(main.menu.impute, "command", label="Check the fit of conditional models", command = checkModelFit)
   #===="Checking the convergence of the imputation"
   #tkadd(main.menu.impute, "command", label="Check the convergence of the imputation", command = function() NULL)
   
   ### Analysis
   #===="Obstain imputed data"
-  tkadd(main.menu.analysis, "command", label="Save imputed data sets", command = function() saveImputedData())
+  tkadd(main.menu.analysis, "command", label="Save imputed data sets", command = saveImputedData)
   #===="Pool Regression Estimates"
-  tkadd(main.menu.analysis, "command", label="Pool regression estimates", command = function() poolRegressionEstimates())
+  tkadd(main.menu.analysis, "command", label="Pool regression estimates", command = poolRegressionEstimates)
   
   ### Validation
   #===="Validation"
@@ -111,10 +113,10 @@ migui <- function(){
   
   ### Help
   #===="Documentation"
-  tkadd(main.menu.help, "command", label="Documentation", command = function() .doc())
-  tkadd(main.menu.help, "command", label="Bugs Report",command = function().bugsReport())
+  tkadd(main.menu.help, "command", label="Documentation", command = .doc)
+  tkadd(main.menu.help, "command", label="Bugs Report",command = .bugsReport)
   #===="Pooling Regression Estimates"
-  tkadd(main.menu.help, "command", label="About",command = function().about())
+  tkadd(main.menu.help, "command", label="About",command = .about)
   
   
   #### put "File" on the main menu
