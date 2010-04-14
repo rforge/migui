@@ -100,8 +100,8 @@ migui <- function(){
   ### Analysis
   #===="Obstain imputed data"
   tkadd(main.menu.analysis, "command", label="Save imputed data sets", command = function() saveImputedData())
-  #===="Pooling Regression Estimates"
-  tkadd(main.menu.analysis, "command", label="Pooling regression estimates", command = function() NULL, state="disabled")
+  #===="Pool Regression Estimates"
+  tkadd(main.menu.analysis, "command", label="Pool regression estimates", command = function() poolRegressionEstimates())
   
   ### Validation
   #===="Validation"
