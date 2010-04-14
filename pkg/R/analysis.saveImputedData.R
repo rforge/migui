@@ -1,6 +1,10 @@
 ## ASSUME data is in a variable called "data"
 ## ASSUME mi.info(data) is in a variable called "info"
 saveImputedData <- function () {
+  if (requireIMP() == FALSE) {
+    return (NULL)
+  }
+  
   onSaveButton <- function () {
     IMP <- getMi (IMP)
     write.mi (IMP, format=as.character(tclvalue (format)))

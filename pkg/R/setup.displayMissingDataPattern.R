@@ -1,5 +1,8 @@
 displayMissingDataPattern <- function () {
-  
+  if (requireData() == FALSE) {
+    return (NULL)
+  }
+
   this.gui <- tktoplevel()
   tktitle(this.gui) <- "Display Missing Data Plot"
   frameOverall <- tkframe(this.gui)

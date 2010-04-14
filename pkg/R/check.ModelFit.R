@@ -1,5 +1,9 @@
 ## ASSUME mi object is in a variable called "IMP"
 checkModelFit <- function () {
+  if (requireIMP() == FALSE) {
+    return (NULL)
+  }
+  
   IMP <- getMi("IMP")
   onSettingChange <- function () {
     # collect information for plot
@@ -62,7 +66,7 @@ checkModelFit <- function () {
       sigma <- sigma.hat(X)
       vrb.obs <- Y
       vrb.imp <- imputed(X, Y)
-   
+         
       img01 <- tkrplot(frameLeft, hscale=.8, vscale=.8, fun=function(){ par(bg="white", mar=c(3,3,4,1), mgp=c(1.5,0.2,0), tcl=-0.2); mi.hist(X, vrb.obs, xlab="", main = currentVar, gray.scale = grayScale)})
       img02 <- tkrplot(frameLeft, hscale=.8, vscale=.8, fun=function(){ par(bg="white", mar=c(3,3,4,1), mgp=c(1.5,0.2,0), tcl=-0.2); residual.plot( fit, res, sigma, main = currentVar, gray.scale = grayScale)})
       img03 <- tkrplot(frameLeft, hscale=.8, vscale=.8, fun=function(){ par(bg="white", mar=c(3,3,4,1), mgp=c(1.5,0.2,0), tcl=-0.2); binnedplot ( fit[ !is.na(Y)], res[ !is.na(Y)], nclass = sqrt( length( fit[  !is.na(Y)] ) ), main = currentVar)})

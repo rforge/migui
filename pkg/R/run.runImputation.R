@@ -1,4 +1,8 @@
 runImputation <- function () {
+  if (requireDataOrImp() == FALSE) {
+    return (NULL)
+  }
+
   states <- c("normal", "disabled")
   
   render <- function () {

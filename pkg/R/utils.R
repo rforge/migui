@@ -53,7 +53,29 @@ miTclSet <- function(name, value) {
   tcl("set", name, value)
 }
 
+requireData <- function () {
+  if (existsMi ("data") == TRUE) {
+    return (TRUE)  
+  }
+  tkmessageBox(message="Data has not been loaded.",title="Data required",icon="error",type="ok")
+  return (FALSE)  
+}
 
+requireIMP <- function () {
+  if (existsMi ("IMP") == TRUE) {
+    return (TRUE)  
+  }
+  tkmessageBox(message="Completed imputation (IMP) required",title="IMP required",icon="error",type="ok")
+  return (FALSE)  
+}
+
+requireDataOrImp <- function () {
+  if (existsMi ("data") == TRUE || existsMi ("IMP") == TRUE) {
+    return (TRUE)
+  }
+  tkmessageBox(message="Data or completed imputation required",title="Data or IMP required",icon="error",type="ok")
+  return (FALSE)
+}
 
 #mainWindow <- function() getMi("mainWindow")
 #
