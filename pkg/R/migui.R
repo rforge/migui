@@ -112,8 +112,9 @@ migui <- function(){
   ### Help
   #===="Documentation"
   tkadd(main.menu.help, "command", label="Documentation", command = function() .doc())
+  tkadd(main.menu.help, "command", label="Bugs Report",command = function().bugsReport())
   #===="Pooling Regression Estimates"
-  tkadd(main.menu.help,"command",label="About",command = function().about())
+  tkadd(main.menu.help, "command", label="About",command = function().about())
   
   
   #### put "File" on the main menu

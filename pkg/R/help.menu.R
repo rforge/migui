@@ -5,3 +5,8 @@
 .doc <- function(){
   browseURL("http://www.stat.columbia.edu/~gelman/research/published/mipaper.rev04.pdf")
 }
+
+
+.bugsReport <- function(){
+  browseURL("https://r-forge.r-project.org/tracker/?atid=2972&group_id=731")
+}
