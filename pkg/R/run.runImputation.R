@@ -246,7 +246,7 @@ runImputation <- function () {
   
   ## center frame 
   
-  tkgrid(tklabel(frameCenter, text = "Methods to deal with Colinearity", font = c("Arial", "11")), row = 0,
+  tkgrid(tklabel(frameCenter, text = "Methods to deal with Collinearity", font = c("Arial", "11")), row = 0,
     column = 3, columnspan = 2, sticky = "w")
  
   ## add.noise = TRUE
