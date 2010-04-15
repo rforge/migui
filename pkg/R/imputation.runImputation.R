@@ -10,7 +10,14 @@ runImputation <- function () {
     runState <- 1
     if (existsMi (IMP)) {
       runState <- 2
-      if (getMi(IMP)@converged) {
+      conv <- getMi(IMP@converged)
+      check.conv <- getMi(IMP@coef.converged)
+      if(is.null(check.conv)){
+        conv <- conv
+      }else{
+        conv <- conv & check.conv
+      }
+      if (conv) {
         tclvalue(converged.message) <- "MI CONVERGED!"
         tkconfigure (converged.entry, disabledforeground="white", disabledbackground="black")
       } else {
