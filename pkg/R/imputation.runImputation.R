@@ -12,7 +12,8 @@ runImputation <- function () {
       runState <- 2
       conv <- getMi(IMP)@converged
       check.conv <- getMi(IMP)@coef.converged
-      if(is.null(check.conv)){
+      coef.mcmc <- getMi(IMP)@coef.mcmc
+      if(is.null(coef.mcmc)){
         conv <- conv
       }else{
         conv <- conv & check.conv
