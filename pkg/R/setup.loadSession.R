@@ -136,7 +136,9 @@ loadSession <- function () {
   
   loadSession.env <- environment ()
   vars.env <- new.env()
-  
+  for (varName in ls(envir=globalenv())) {
+    assign (varName, get(varName, envir=globalenv()), envir=vars.env)
+  }
   useTmpWorkspace()
   tkfocus (this.gui)
 } 
