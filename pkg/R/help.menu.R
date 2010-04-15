@@ -3,7 +3,7 @@
 }
 
 .doc <- function(){
-  browseURL("http://www.stat.columbia.edu/~gelman/research/published/mipaper.rev04.pdf")
+  browseURL("http://www.stat.columbia.edu/~ys463/mipaper.pdf")
 }
 
 

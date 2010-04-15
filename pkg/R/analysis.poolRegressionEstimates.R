@@ -63,60 +63,71 @@ poolRegressionEstimates <- function () {
   
   this.gui <- tktoplevel(border=4)
   tktitle (this.gui) <- "Pool Regression Estimates"
+  frameOverall <- tkframe(this.gui)
+  frameUpper <- tkframe(frameOverall, relief="groove", borderwidth=4)
+  frameLeft <- tkframe(frameOverall, relief="groove", borderwidth=4)
+  frameRight <- tkframe(frameOverall, relief="groove", borderwidth=4)  
+
+
+  tkgrid(frameOverall)
+  tkgrid(frameUpper, row=0, column=0, rowspan=2, columnspan=3)
+  tkgrid(frameLeft, row=2, column=0, rowspan=6, columnspan=2)
+  tkgrid(frameRight, row=2, column=2, rowspan=6, columnspan=1)
+
 
   ## Outcome Variable
   all.vars <- paste (getMi(info)$name, "  (", getMi(info)$type, ")", sep="")
   outcomeVariable <- tclVar (all.vars[1])
-  outcomeVariable.comboBox <- ttkcombobox (this.gui, values=all.vars, textvariable=outcomeVariable, width=30)
+  outcomeVariable.comboBox <- ttkcombobox (frameUpper, values=all.vars, textvariable=outcomeVariable, width=30)
   
-  tkgrid (tklabel (this.gui, text="Outcome"), row=0, column=0, sticky="w")
+  tkgrid (tklabel (frameUpper, text="Outcome Variable"), row=0, column=0, sticky="w")
   tkgrid (outcomeVariable.comboBox, row=1, column=0, sticky="w")
   tkbind (outcomeVariable.comboBox, "<<ComboboxSelected>>", onOutcomeVarChange)
   
   ## Regression formula
   formula <- tclVar (getMi(info)$imp.formula[[1]])
-  formula.entry <- tkentry (this.gui, width=80, textvariable=formula)
+  formula.entry <- tkentry (frameUpper, width=75, textvariable=formula)
   
-  tkgrid (tklabel (this.gui, text="Regression formula"), row=0, column=1, columnspan=2, sticky="w")
-  tkgrid (formula.entry, row=1, column=1, columnspan=2)
+  tkgrid (tklabel (frameUpper, text="Regression Formula"), row=0, column=1, columnspan=3, sticky="w")
+  tkgrid (formula.entry, row=1, column=1, columnspan=3)
   
   ## Regression model
   regressionModels <- c ("lm", "glm", "polr", "bayesglm", "bayespolr")
   links <- c ("Gaussian", "logit", "quasi-Poisson", "probit")
   regressionModel <- tclVar (regressionModels[1])
   
-  regressionModel.lm <- tkradiobutton (this.gui, text="Linear Regression")
+  regressionModel.lm <- tkradiobutton (frameLeft, text="Linear Regression")
   tkconfigure(regressionModel.lm, variable=regressionModel, value=regressionModels[1])
-  regressionModel.glm <- tkradiobutton (this.gui, text="Generalized Linear Regression")
+  regressionModel.glm <- tkradiobutton (frameLeft, text="Generalized Linear Regression, Link = ")
   tkconfigure(regressionModel.glm, variable=regressionModel, value=regressionModels[2])
   regressionModel.glm.link <- tclVar (links[1])
-  regressionModel.glm.link.combobox <- ttkcombobox (this.gui, values=links, textvariable=regressionModel.glm.link)
+  regressionModel.glm.link.combobox <- ttkcombobox (frameLeft, values=links, textvariable=regressionModel.glm.link)
   
-  regressionModel.polr <- tkradiobutton (this.gui, text="Penalized Ordered Logistic Regression")
+  regressionModel.polr <- tkradiobutton (frameLeft, text="Ordered Logistic Regression")
   tkconfigure(regressionModel.polr, variable=regressionModel, value=regressionModels[4])
-  regressionModel.bayesglm <- tkradiobutton (this.gui, text="Bayes Generalized Linear Regression")
+  regressionModel.bayesglm <- tkradiobutton (frameLeft, text="Bayes Generalized Linear Regression, Link = ")
   tkconfigure(regressionModel.bayesglm, variable=regressionModel, value=regressionModels[5])
   regressionModel.bayesglm.link <- tclVar (links[1])
-  regressionModel.bayesglm.link.combobox <- ttkcombobox (this.gui, values=links, textvariable=regressionModel.bayesglm.link)
+  regressionModel.bayesglm.link.combobox <- ttkcombobox (frameLeft, values=links, textvariable=regressionModel.bayesglm.link)
   
   
-  regressionModel.bayespolr <- tkradiobutton (this.gui, text="Bayesian Penalized Ordered Logistic Regression")
+  regressionModel.bayespolr <- tkradiobutton (frameLeft, text="Bayesian Ordered Logistic Regression")
   tkconfigure(regressionModel.bayespolr, variable=regressionModel, value=regressionModels[7])
-
-  tkgrid (tklabel (this.gui, text="Regression Models"), row=2, column=0, columnspan=2)
-  row <- 3
-  tkgrid (regressionModel.lm, row=row, column=0, columnspan=2, sticky="w"); row <- row+1
-  tkgrid (regressionModel.glm, row=row, column=0, columnspan=2, sticky="w");
-  tkgrid (tklabel (this.gui, text="Link = "), row=row, column=2, sticky="e")
-  tkgrid (regressionModel.glm.link.combobox, row=row, column=3, sticky="w"); row <- row + 1 
-  tkgrid (regressionModel.polr, row=row, column=0, columnspan=2, sticky="w"); row <- row+1
-  tkgrid (regressionModel.bayesglm, row=row, column=0, columnspan=2, sticky="w");
-  tkgrid (tklabel (this.gui, text="Link = "), row=row, column=2, sticky="e") 
-  tkgrid (regressionModel.bayesglm.link.combobox, row=row, column=3, sticky="w"); row <- row + 1
-  tkgrid (regressionModel.bayespolr, row=row, column=0, columnspan=2, sticky="w"); row <- row+1
+  
+  
+  tkgrid (tklabel (frameLeft, text="Regression Models"), row=2, column=0, columnspan=4, sticky="w")
+  tkgrid (regressionModel.lm, row=3, column=0, sticky="w")
+  tkgrid (regressionModel.glm, row=4, column=0, sticky="w")
+  tkgrid (regressionModel.glm.link.combobox, row=4, column=1, sticky="w")
+  tkgrid (regressionModel.polr, row=5, column=0, sticky="w")
+  tkgrid (regressionModel.bayesglm, row=6, column=0, sticky="w")
+  tkgrid (regressionModel.bayesglm.link.combobox, row=6, column=1, sticky="w")
+  tkgrid (regressionModel.bayespolr, row=7, column=0, sticky="w")
    
   onOutcomeVarChange()
-  submit.but <- tkbutton (this.gui, text="Submit", command=onSubmitButton, width=10)
-  tkgrid (submit.but, row=9, column=3)
-  tkfocus (this.gui)
+  submit.but <- tkbutton (frameRight, text="Submit", command=onSubmitButton, width=15)
+  exit.but <- tkbutton (frameRight, text="Exit", command=function() tkdestroy(this.gui), width=15)
+  tkgrid (submit.but, row=6, column=3)
+  tkgrid (exit.but, row=7, column=3)
+  tkfocus (frameOverall)
 }
