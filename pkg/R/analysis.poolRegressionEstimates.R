@@ -104,15 +104,15 @@ poolRegressionEstimates <- function () {
   regressionModel.glm.link.combobox <- ttkcombobox (frameLeft, values=links, textvariable=regressionModel.glm.link)
   
   regressionModel.polr <- tkradiobutton (frameLeft, text="Ordered Logistic Regression")
-  tkconfigure(regressionModel.polr, variable=regressionModel, value=regressionModels[4])
+  tkconfigure(regressionModel.polr, variable=regressionModel, value=regressionModels[3])
   regressionModel.bayesglm <- tkradiobutton (frameLeft, text="Bayes Generalized Linear Regression, Link = ")
-  tkconfigure(regressionModel.bayesglm, variable=regressionModel, value=regressionModels[5])
+  tkconfigure(regressionModel.bayesglm, variable=regressionModel, value=regressionModels[4])
   regressionModel.bayesglm.link <- tclVar (links[1])
   regressionModel.bayesglm.link.combobox <- ttkcombobox (frameLeft, values=links, textvariable=regressionModel.bayesglm.link)
   
   
   regressionModel.bayespolr <- tkradiobutton (frameLeft, text="Bayesian Ordered Logistic Regression")
-  tkconfigure(regressionModel.bayespolr, variable=regressionModel, value=regressionModels[7])
+  tkconfigure(regressionModel.bayespolr, variable=regressionModel, value=regressionModels[5])
   
   
   tkgrid (tklabel (frameLeft, text="Regression Models"), row=2, column=0, columnspan=4, sticky="w")
