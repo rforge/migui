@@ -10,9 +10,9 @@ displayMissingDataPattern <- function () {
   frameRight <- tkframe(frameOverall, relief="groove", borderwidth=4)  
   frameBottom <- tkframe(frameOverall, relief="groove", borderwidth=4)  
   tkgrid(frameOverall)
-  tkgrid(frameLeft, row=0, column=0, columnspan=9, rowspan=15)
+  tkgrid(frameLeft, row=0, column=0, columnspan=9, rowspan=17)
   tkgrid(frameRight, row=0, column=9, rowspan=16)
-  tkgrid(frameBottom, row=16, column=9)
+  tkgrid(frameBottom, row=16, column=9, rowspan=1)
 
   #### options ####
   # y.order
@@ -105,7 +105,7 @@ displayMissingDataPattern <- function () {
     options$mis.col <- as.character (tclvalue (mis.col))
     
     missing.pattern <- tkrplot(frameLeft, fun=plotFunctionCreator(options), hscale=1.5)
-    tkgrid(missing.pattern, "in"=frameLeft, row=0, column=0, columnspan=9, rowspan=14)
+    tkgrid(missing.pattern, "in"=frameLeft, row=0, column=0, columnspan=9, rowspan=17)
     tkfocus(this.gui) 
   }
   
