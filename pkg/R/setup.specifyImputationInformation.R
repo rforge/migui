@@ -47,7 +47,7 @@ specifyImputationInformation <- function () {
       "continuous", "proportion", "ordered-categorical", "nonnegative", "positive-continuous",
       "count", "predictive-mean-matching")
   type <- tclVar (getMi(info)$type[[1]])
-  type.comboBox <- ttkcombobox (this.gui, values=types, textvariable=type)
+  type.comboBox <- ttkcombobox (this.gui, values=types, textvariable=type, width=30)
   tkgrid (tklabel (this.gui, text="Variable type"), row=0, column=1, sticky="w")
   tkgrid (type.comboBox, row=1, column=1, sticky="w")
   
