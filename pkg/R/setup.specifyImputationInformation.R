@@ -87,8 +87,10 @@ specifyImputationInformation <- function () {
   
   
   apply.but <- tkbutton (this.gui, text="Apply", command=onApplyButton, width=10)
+  ok.but <- tkbutton (this.gui, text="Ok", command=function() tkdestroy(this.gui), width=10)
   exit.but <- tkbutton (this.gui, text="Exit", command=function() tkdestroy(this.gui), width=10)
   tkgrid (apply.but, row=7, column=3)
+  tkgrid (ok.but, row=8, column=3)
   tkgrid (exit.but, row=9, column=3)
   tkfocus (this.gui)
 }
