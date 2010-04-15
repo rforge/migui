@@ -10,8 +10,8 @@ runImputation <- function () {
     runState <- 1
     if (existsMi (IMP)) {
       runState <- 2
-      conv <- getMi(IMP@converged)
-      check.conv <- getMi(IMP@coef.converged)
+      conv <- getMi(IMP)@converged
+      check.conv <- getMi(IMP)@coef.converged
       if(is.null(check.conv)){
         conv <- conv
       }else{
