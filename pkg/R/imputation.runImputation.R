@@ -287,7 +287,7 @@ runImputation <- function () {
   # cooling
   add.noise.K <- tclVar (1)
   add.noise.K.entry <- tkentry (frameCenter, width=10, textvariable=add.noise.K)
-  add.noise.K.label <- tklabel (frameCenter, text="Cooling paramter")
+  add.noise.K.label <- tklabel (frameCenter, text="Cooling parameter")
   tkgrid (add.noise.K.label, row=5, column=3, sticky="w")
   tkgrid (add.noise.K.entry, row=6, column=3, sticky="w")
 
