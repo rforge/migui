@@ -10,6 +10,12 @@ specifyImputationInformation <- function () {
     tclvalue (type)    <- getMi(info)$type[[var]]
     tclvalue (include) <- as.character (getMi(info)$include[[var]])
     tclvalue (is.ID)   <- as.character (getMi(info)$is.ID[[var]])
+    
+    if (getMi(info)$include[[var]] == FALSE) {
+      tkconfigure (formula.entry, background="gray")
+    } else {
+      tkconfigure (formula.entry, background="white")
+    }
   }
   
   onApplyButton <- function () {
