@@ -46,7 +46,7 @@ loadSession <- function () {
   }   
   
   loadFile <- function () {
-    fileName <- tclvalue(tkgetOpenFile())
+    fileName <- tclvalue(tkgetOpenFile(filetypes="{{All files} *} {{R Data files} {.Rdata}}"))
     if (nchar(fileName)) {
       rm (list=ls(envir=vars.env), envir=vars.env)
       load (fileName, envir=vars.env)
