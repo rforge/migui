@@ -35,14 +35,26 @@ saveWorkspace <- function () {
   }
   
   this.gui <- tktoplevel(width=500, height=750)
-  tktitle(this.gui) <- "Save R Workspace"
-  
+  tktitle(this.gui) <- "Save session"
+  frameOverall <- tkframe(this.gui)
+  frameLeft <- tkframe(frameOverall, relief="groove", borderwidth=4)
+  frameRight <- tkframe(frameOverall, relief="groove", borderwidth=4) 
+  frameCenter <- tkframe(frameOverall, relief="groove", borderwidth=4)  
+
+  tkgrid(frameOverall)
+  tkgrid(frameLeft, row=0, column=0, rowspan=4, columnspan=2)
+  tkgrid(frameCenter, row=0, column=2, rowspan=4, columnspan=2)
+  tkgrid(frameRight, row=0, column=4, rowspan=4, columnspan=1)
+
+
+
+
   ## data -> data (data.frame) 
   ## info -> info (mi.info)
   ## IMP  -> IMP  (mi)
   
-  tkgrid (tklabel (this.gui, text="Variable"), row=0, column=0)
-  tkgrid (tklabel (this.gui, text="Save As"), row=0, column=1)
+  tkgrid (tklabel (frameLeft, text="Object", font = c("Arial", "10")), row=0, column=0)
+  tkgrid (tklabel (frameLeft, text="Rename as...", font = c("Arial", "10")), row=0, column=1)
 
   state <- ""
 
@@ -54,8 +66,8 @@ saveWorkspace <- function () {
     state <- "disabled"
     tclvalue (data.name) <- ""
   }
-  tkgrid (tklabel (this.gui, text="data: ", width=15, state=state), row=1, column=0, sticky="e")
-  data.name.entry <- tkentry (this.gui, width=15, textvariable=data.name, state=state)
+  tkgrid (tklabel (frameLeft, text="dataframe: ", state=state), row=1, column=0, sticky="w")
+  data.name.entry <- tkentry (frameLeft, width=20, textvariable=data.name, state=state, border=2)
   tkgrid (data.name.entry, row=1, column=1)
 
   info.name <- tclVar ("")
@@ -66,8 +78,8 @@ saveWorkspace <- function () {
     state <- "disabled"
     tclvalue <- tclVar ("")
   }
-  tkgrid (tklabel (this.gui, text="info: ", width=15, state=state), row=2, column=0, sticky="e")
-  info.name.entry <- tkentry (this.gui, width=15, textvariable=info.name, state=state)
+  tkgrid (tklabel (frameLeft, text="mi information: ", state=state), row=2, column=0, sticky="w")
+  info.name.entry <- tkentry (frameLeft, width=20, textvariable=info.name, state=state, border=2)
   tkgrid (info.name.entry, row=2, column=1)
 
   imp.name <- tclVar ("")
@@ -78,21 +90,25 @@ saveWorkspace <- function () {
     state <- "disabled"
     tclvalue (imp.name) <- ""
   }
-  tkgrid (tklabel (this.gui, text="IMP: ", width=15, state=state), row=3, column=0, sticky="en")
-  imp.name.entry <- tkentry (this.gui, width=15, textvariable=imp.name, state=state)
+  tkgrid (tklabel (frameLeft, text="mi object: ", state=state), row=3, column=0, sticky="w")
+  imp.name.entry <- tkentry (frameLeft, width=20, textvariable=imp.name, state=state, border=2)
   tkgrid (imp.name.entry, row=3, column=1, sticky="n")
-  
-  
-  tkgrid (tklabel (this.gui, text="File name:"), row=1, column=2)
+ 
+  tkgrid (tklabel (frameCenter, text="Output as an R workspace", font=c("Arial", "10")), row=0, column=2, columnspan=2)
+  tkgrid (tklabel (frameCenter, text="File name:"), row=2, column=2, sticky="w")
   filename <- tclVar ("")
   #tkgrid (tklabel (this.gui, text="  "), row=1, column=1)
-  filename.entry <- tkentry (this.gui, width=15, textvariable=filename)
-  tkgrid (filename.entry, row=1, column=3)
-  
-  tkgrid (tkbutton (this.gui, text="Save File", command=onSaveFile, width=20), row=1, column=4)#, sticky="e")
-  tkgrid (tkbutton (this.gui, text="Save to\nGlobal Environment", command=onSaveGlobalEnvironment, width=20), row=3, column=4)#, sticky="e")
-  
+  filename.entry <- tkentry (frameCenter, width=20, textvariable=filename, border=2)
+  tkgrid (filename.entry, row=2, column=3)
+  tkgrid (tklabel(frameCenter, text=""), row=1, column=3)
+  tkgrid (tklabel(frameCenter, text=""), row=3, column=3)
   
   
-  tkfocus(filename.entry)
+  
+  tkgrid (tkbutton (frameRight, text="Save to global environment", command=onSaveGlobalEnvironment, width=24), row=2, column=4)
+  tkgrid (tkbutton (frameRight, text="Save to file", command=onSaveFile, width=24), row=3, column=4)
+  tkgrid (tkbutton (frameRight, text="Exit", command=function() tkdestroy(this.gui), width=24), row=4, column=4)
+
+  
+  tkfocus(this.gui)
 }
