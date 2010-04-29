@@ -44,8 +44,8 @@ importDataFrom <- function(){
   
   # combobox for data format 
   dataFormat <- tclVar(availableDataFormat[1])
-  dataFormat.comboBox <- ttkcombobox(this.gui, values=availableDataFormat, textvariable=dataFormat, width=10)
-  tkgrid (tklabel(this.gui, text="Choose a Data Format"), row=0, column=0)
+  dataFormat.comboBox <- ttkcombobox(this.gui, values=availableDataFormat, textvariable=dataFormat, width=15)
+  tkgrid (tklabel(this.gui, text="Choose a Data Format", font=c("Arial", 10)), row=0, column=0)
   tkgrid (dataFormat.comboBox, row=1, column=0, sticky="e")
   tkbind (dataFormat.comboBox, "<<ComboboxSelected>>", onChange)  
   exitButton <- tkbutton(this.gui, text="Exit", command=function() tkdestroy(this.gui), width=10)
