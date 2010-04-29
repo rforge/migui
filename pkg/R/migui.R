@@ -60,7 +60,7 @@ migui <- function(){
   #===="Save Output File"
   #tkadd(main.menu.file, "command", label="Save output file", command = function() NULL)
   #===="Save R Workspace"
-  tkadd(main.menu.file, "command", label="Save R workspace", command = saveWorkspace)
+  tkadd(main.menu.file, "command", label="Save session", command = saveWorkspace)
   #===="Exit"
   tkadd(main.menu.file, "command", label="Exit", command = .exit)
   
