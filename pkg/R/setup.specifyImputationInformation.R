@@ -39,7 +39,7 @@ specifyImputationInformation <- function () {
   }
   
   this.gui <- tktoplevel(border=4)
-  tktitle (this.gui) <- "Specify Conditional Models"
+  tktitle (this.gui) <- "Specify Imputation Information"
   ## Variable
   all.vars <- getMi(info)$name
   current.var <- tclVar (getMi(info)$name[[1]])
