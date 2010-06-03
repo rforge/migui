@@ -90,6 +90,9 @@ migui <- function(){
   tkadd(main.menu.setup, "command", label="Display missing data patterns", command = displayMissingDataPattern)
   #===="Specify Inputation Information"
   tkadd(main.menu.setup, "command", label="Specify imputation information", command = specifyImputationInformation)
+  #===="Transforming the data"
+  tkadd(main.menu.setup, "command", label="Transform the data", command = function() NULL)
+
   
   ### Imputation
   #===="Run"

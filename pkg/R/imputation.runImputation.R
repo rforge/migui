@@ -33,9 +33,9 @@ runImputation <- function () {
     tkconfigure (n.imp.label, state=states[runState])
     tkconfigure (n.imp.entry, state=states[runState])
     
-    tkconfigure (preprocess.label, state=states[runState])   
-    tkconfigure (preprocess.rb1, state=states[runState])
-    tkconfigure (preprocess.rb2, state=states[runState])
+#    tkconfigure (preprocess.label, state=states[runState])   
+#    tkconfigure (preprocess.rb1, state=states[runState])
+#    tkconfigure (preprocess.rb2, state=states[runState])
     
     tkconfigure (check.coef.convergence.label, state=states[runState])   
     tkconfigure (check.coef.convergence.chk, state=states[runState])
@@ -139,7 +139,7 @@ runImputation <- function () {
         R.hat           = as.numeric (tclvalue (R.hat)),
         max.minutes     = as.numeric (tclvalue (max.minutes)), 
         rand.imp.method     = as.character(tclvalue (rand.imp.method)), 
-        preprocess        = as.logical (tclvalue (preprocess)), 
+#        preprocess        = as.logical (tclvalue (preprocess)), 
         run.past.convergence  = as.logical (tclvalue (run.past.convergence)),
         seed          = as.numeric (tclvalue (seed)),
         check.coef.convergence  = as.logical (as.numeric(tclvalue (check.coef.convergence))), 
@@ -161,7 +161,7 @@ runImputation <- function () {
 
   #frameBottom <- tkframe(frameOverall, width=840, height=40, relief="groove",borderwidth=2)  
   tkgrid(frameOverall)
-  tkgrid(frameLeft, row=0, column=0, columnspan=2, rowspan=11)  
+  tkgrid(frameLeft, row=0, column=0, columnspan=2, rowspan=12)  
   tkgrid(frameCenter, row=0, column=3, columnspan=2, rowspan=7)
   tkgrid(frameBottom, row=9, column=3, columnspan=2, rowspan=3)  
   tkgrid(frameConv, row=12, column=0, columnspan=4, rowspan=1)  
@@ -203,23 +203,27 @@ runImputation <- function () {
   tkgrid (seed.label, row=4, column=0, sticky="w")
   tkgrid (seed.entry, row=4, column=1, sticky="w")
   
+  
+  
   ## R.hat = 1.1
   R.hat <- tclVar (1.1)
   R.hat.label <- tklabel (frameLeft, text="R.hat convergence criterion")
   R.hat.entry <- tkentry (frameLeft, width=10, textvariable=R.hat)
-  tkgrid (R.hat.label, row=5, column=0, sticky="w")
-  tkgrid (R.hat.entry, row=5, column=1, sticky="w")
+  tkgrid(tklabel(frameLeft, text=""), row = 5, column = 0, columnspan=2)
+  tkgrid(tklabel(frameLeft, text="Check Convergence", font=c("Arial", "11")), row = 6, column = 0, columnspan=2, sticky="w")
+  tkgrid (R.hat.label, row=7, column=0, sticky="w")
+  tkgrid (R.hat.entry, row=7, column=1, sticky="w")
   
   ## preprocess = TRUE
-  preprocess <- tclVar ("TRUE")
-  preprocess.rb1 <- tkradiobutton (frameLeft, text="Yes")
-  tkconfigure(preprocess.rb1,variable=preprocess, value="TRUE")
-  preprocess.rb2 <- tkradiobutton (frameLeft, text="No")
-  tkconfigure(preprocess.rb2, variable=preprocess, value="FALSE")
-  preprocess.label <- tklabel (frameLeft, text="Transform the data?")
-  tkgrid (preprocess.label, row=6, column=0, sticky="w")
-  tkgrid (preprocess.rb1, row=6, column=1, sticky="w")
-  tkgrid (preprocess.rb2, row=7, column=1, sticky="w")
+#  preprocess <- tclVar ("TRUE")
+#  preprocess.rb1 <- tkradiobutton (frameLeft, text="Yes")
+#  tkconfigure(preprocess.rb1,variable=preprocess, value="TRUE")
+#  preprocess.rb2 <- tkradiobutton (frameLeft, text="No")
+#  tkconfigure(preprocess.rb2, variable=preprocess, value="FALSE")
+#  preprocess.label <- tklabel (frameLeft, text="Transform the data?")
+#  tkgrid (preprocess.label, row=6, column=0, sticky="w")
+#  tkgrid (preprocess.rb1, row=6, column=1, sticky="w")
+#  tkgrid (preprocess.rb2, row=7, column=1, sticky="w")
 
   
   ## check.coef.convergence = FALSE
