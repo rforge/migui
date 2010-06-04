@@ -3,10 +3,12 @@ poolRegressionEstimates <- function () {
     return (NULL)
   }
   
+  info.post <- mi.info(mi.data.frame(IMP, 1))
+  
   onOutcomeVarChange <- function () {
     var <- strsplit (tclvalue(outcomeVariable), " ")[[1]][1]
     
-    tclvalue (formula) <- getMi(info)$imp.formula[[var]]
+    tclvalue (formula) <- info.post$imp.formula[[var]]#getMi(info)$imp.formula[[var]]
     
     ## TODO: Want to shade accordingly here
     
@@ -76,7 +78,8 @@ poolRegressionEstimates <- function () {
 
 
   ## Outcome Variable
-  all.vars <- paste (getMi(info)$name, "  (", getMi(info)$type, ")", sep="")
+  #all.vars <- paste (getMi(info)$name, "  (", getMi(info)$type, ")", sep="")
+  all.vars <- paste (info.post$name, "  (", info.post$type, ")", sep="")
   outcomeVariable <- tclVar (all.vars[1])
   outcomeVariable.comboBox <- ttkcombobox (frameUpper, values=all.vars, textvariable=outcomeVariable, width=30)
   
@@ -85,7 +88,8 @@ poolRegressionEstimates <- function () {
   tkbind (outcomeVariable.comboBox, "<<ComboboxSelected>>", onOutcomeVarChange)
   
   ## Regression formula
-  formula <- tclVar (getMi(info)$imp.formula[[1]])
+  #formula <- tclVar (getMi(info)$imp.formula[[1]])
+  formula <- tclVar (info.post$imp.formula[[1]])
   formula.entry <- tkentry (frameUpper, width=75, textvariable=formula)
   
   tkgrid (tklabel (frameUpper, text="Regression Formula"), row=0, column=1, columnspan=3, sticky="w")
