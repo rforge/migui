@@ -1,8 +1,16 @@
 transformData <- function () {
 
+
+
   if (requireData() == FALSE) {
     return (NULL)
   }
+  preprocess <- tclVar ("FALSE")
+  states <- c("disable", "normal")
+  states <- states[as.numeric(as.logical(tclvalue(preprocess))+1)]
+
+
+
   
   onVarChange <- function () {
     var <- tclvalue(current.var)
@@ -22,29 +30,29 @@ transformData <- function () {
   tktitle (this.gui) <- "Transforming the data"
   frameOverall <- tkframe(this.gui)
   frameUpper <- tkframe(frameOverall, relief="groove",borderwidth=4)
+  frameCenter <- tkframe(frameOverall, relief="groove",borderwidth=4)
   frameBottom <- tkframe(frameOverall, relief="groove",borderwidth=4)
-  frameRight <- tkframe(frameOverall, relief="groove",borderwidth=4)
   tkgrid(frameOverall)
-  tkgrid(frameUpper, row=0, column=0, columnspan=2, rowspan=1)  
-  tkgrid(frameBottom, row=1, column=0, columnspan=2, rowspan=2)  
-  tkgrid(frameRight, row=0, column=2, columnspan=1, rowspan=3)  
+  tkgrid(frameUpper, row=0, column=0, columnspan=3, rowspan=1)  
+  tkgrid(frameCenter, row=1, column=0, columnspan=3, rowspan=2)  
+  tkgrid(frameBottom, row=4, column=0, columnspan=3, rowspan=2)  
 
-  preprocess <- tclVar("0")
-  preprocess.chk <- tkcheckbutton(frameUpper)
-  tkconfigure(preprocess.chk, variable=preprocess)
-  preprocess.label <- tklabel (frameUpper, text="Preprocess the data?")#, state="disable")
-  tkgrid (preprocess.label, row=0, column=0, sticky="w")
-  tkgrid (preprocess.chk, row=0, column=1)
+   preprocess.rb1 <- tkradiobutton (frameUpper, text="Yes")
+   tkconfigure(preprocess.rb1,variable=preprocess, value="TRUE")
+   preprocess.rb2 <- tkradiobutton (frameUpper, text="No")
+   tkconfigure(preprocess.rb2, variable=preprocess, value="FALSE")
+   preprocess.label <- tklabel (frameUpper, text="Preprocess the data?", width=50)
+   tkgrid (preprocess.label, row=0, column=0)
+   tkgrid (preprocess.rb1, row=0, column=1)#, sticky="w")
+   tkgrid (preprocess.rb2, row=0, column=2)#, sticky="w")
   
   
   ## Variable
-  states <- c("disable", "normal")
-  states <- states[(as.numeric(tclvalue(preprocess))+1)]
   
   all.vars <- getMi(info)$name
   current.var <- tclVar (getMi(info)$name[[1]])
-  current.var.comboBox <- ttkcombobox (frameBottom, values=all.vars, textvariable=current.var)
-  tkgrid (tklabel (frameBottom, text="Variable"), row=2, column=0, sticky="w")
+  current.var.comboBox <- ttkcombobox (frameCenter, values=all.vars, textvariable=current.var)
+  tkgrid (tklabel (frameCenter, text="Variable"), row=2, column=0, sticky="w")
   tkgrid (current.var.comboBox, row=3, column=0, sticky="w")
   tkbind (current.var.comboBox, "<<ComboboxSelected>>", onVarChange)
   
@@ -53,16 +61,27 @@ transformData <- function () {
       "continuous", "proportion", "ordered-categorical", "nonnegative", "positive-continuous",
       "count", "predictive-mean-matching")
   type <- tclVar (getMi(info)$type[[1]])
-  type.comboBox <- ttkcombobox (frameBottom, values=types, textvariable=type, width=30)
-  tkgrid (tklabel (frameBottom, text="Variable type"), row=2, column=1, sticky="w")
+  type.comboBox <- ttkcombobox (frameCenter, values=types, textvariable=type, width=26)
+  tkgrid (tklabel (frameCenter, text="Variable type"), row=2, column=1, sticky="w")
   tkgrid (type.comboBox, row=3, column=1, sticky="w")
-    
+  
+  apply.but <- tkbutton (frameCenter, text="Apply", command=onApplyButton, width=10, state=states)
+  tkgrid (apply.but, row=3, column=2)
+  
+  preprocessData <- function(){ 
+    putMi(preprocess.flg, as.logical(tclvalue(preprocess)))
+    if(as.logical(tclvalue(preprocess))){
+      data.new <- mi.preprocess(data=getMi(data), info=getMi(info))
+      putMi(info, data.new@mi.info)
+      putMi(data, data.new@data)
+    }
+    tkdestroy(this.gui)
+  }
+
   ## button
-  apply.but <- tkbutton (frameRight, text="Apply", command=onApplyButton, width=10)
-  ok.but <- tkbutton (frameRight, text="Ok", command=function() tkdestroy(this.gui), width=10)
-  exit.but <- tkbutton (frameRight, text="Exit", command=function() tkdestroy(this.gui), width=10)
-  tkgrid (apply.but, row=0, column=2)
-  tkgrid (ok.but, row=1, column=2)
-  tkgrid (exit.but, row=2, column=2)
+  ok.but <- tkbutton (frameBottom, text="Ok", command=preprocessData, width=15)
+  exit.but <- tkbutton (frameBottom, text="Exit", command=function() tkdestroy(this.gui), width=15)
+  tkgrid (ok.but, row=5, column=1)
+  tkgrid (exit.but, row=5, column=2)
   tkfocus (this.gui)
 }
