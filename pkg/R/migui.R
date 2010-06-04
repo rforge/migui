@@ -89,7 +89,7 @@ migui <- function(){
   #===="Diaply Missing Data Pattern"
   tkadd(main.menu.setup, "command", label="Display missing data patterns", command = displayMissingDataPattern)
   #===="Transforming the data"
-  tkadd(main.menu.setup, "command", label="Transform the data", command = preprocessData)
+  tkadd(main.menu.setup, "command", label="Preprocess the data", command = preprocessData)
   #===="Specify Inputation Information"
   tkadd(main.menu.setup, "command", label="Specify imputation information", command = specifyImputationInformation)
 

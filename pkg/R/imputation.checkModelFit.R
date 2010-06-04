@@ -12,9 +12,9 @@ checkModelFit <- function () {
     currentVar <- as.character(tclvalue(current.var)) 
     
     mi.object <- imp(IMP, thisChain)
-    if(IMP@preprocess){
-      IMP@data <- mi.preprocess(IMP@data, info=IMP@mi.info)$data
-    }
+    #if(IMP@preprocess){
+    #  IMP@data <- mi.preprocess(IMP@data, info=IMP@mi.info)$data
+    #}
     outcome.var <- as.data.frame(IMP@data[ , names(mi.object)])
     names(outcome.var) <- names(mi.object)        
     
