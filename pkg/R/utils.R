@@ -33,7 +33,7 @@ getMi <- function(x, mode="any"){
 }
 
 lsMi <- function () {
-  ls (envir = miEnv(), all=TRUE)
+  ls (envir = miEnv(), all.names=TRUE)
 }
 
 existsMi <- function (x, ...) {
@@ -41,7 +41,7 @@ existsMi <- function (x, ...) {
 }
 
 rmMi <- function (x, ...) {
-  rm (list=as.character (substitute (x)), envir = miEnv(), ...)    
+  rm (list=as.character (substitute (x)), envir = miEnv(), ...)
 }
 
 removeMi <- function (x, ...) {
@@ -55,18 +55,18 @@ miTclSet <- function(name, value) {
 
 requireData <- function () {
   if (existsMi ("data") == TRUE) {
-    return (TRUE)  
+    return (TRUE)
   }
   tkmessageBox(message="Data has not been loaded.",title="Data required",icon="error",type="ok")
-  return (FALSE)  
+  return (FALSE)
 }
 
 requireIMP <- function () {
   if (existsMi ("IMP") == TRUE) {
-    return (TRUE)  
+    return (TRUE)
   }
   tkmessageBox(message="Completed imputation (IMP) required",title="IMP required",icon="error",type="ok")
-  return (FALSE)  
+  return (FALSE)
 }
 
 requireDataOrImp <- function () {
